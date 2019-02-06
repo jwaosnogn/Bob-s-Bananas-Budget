@@ -2,7 +2,9 @@ const redis = require('redis');
 
 const priceController = {};
 
+const databaseKey = process.env.NODE_ENV === 'test' ? 1 : 0;
 const client = redis.createClient();
+client.select(databaseKey);
 
 priceController.calculatePrice = (req, res, next) => {
   const { startDate, numberOfDays } = req.body;

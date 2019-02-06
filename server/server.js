@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post('/calculatePrice', priceController.calculatePrice, (req, res) => {
-  res.send({ totalCost: `$${res.locals.cost}` });
+  res.send({ totalCost: `$${res.locals.cost.toFixed(2)}` });
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}!`));
