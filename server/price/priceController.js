@@ -1,4 +1,8 @@
+const redis = require('redis');
+
 const priceController = {};
+
+const client = redis.createClient();
 
 priceController.calculatePrice = (req, res, next) => {
   const { startDate, numberOfDays } = req.body;
@@ -18,19 +22,33 @@ priceController.calculatePrice = (req, res, next) => {
     return res.status(400).send('Erorr: Please input correct format for start day');
   }
 
-  let cost = 0;
-  // Iterate through all days in range, adding to cost only if weekday with multiplier depending on date
-  for (let i = 0; i < numberOfDays; i += 1) {
-    const date = currentDay.getDate();
-    const day = currentDay.getDay();
-    const multiplier = Math.floor((date - 1) / 7);
-    if (day >= 1 && day <= 5) {
-      cost += 0.05 + 0.05 * multiplier;
+  // Creating unique key to be checked/stored in Redis
+  const key = JSON.stringify([startDate, numberOfDays]);
+
+  // Check Redis if request with same parameters has been made before
+  client.get(key, (err, result) => {
+  // If this is a request that hasn't been made before, calculate cost, store into Redis, and send output
+    if (!result) {
+      let cost = 0;
+      // Iterate through all days in range, adding to cost only if weekday with multiplier depending on date
+      for (let i = 0; i < numberOfDays; i += 1) {
+        const date = currentDay.getDate();
+        const day = currentDay.getDay();
+        const multiplier = Math.floor((date - 1) / 7);
+        if (day >= 1 && day <= 5) {
+          cost += 0.05 + 0.05 * multiplier;
+        }
+        currentDay.setDate(currentDay.getDate() + 1);
+      }
+      client.set(key, cost);
+      res.locals.cost = cost;
+      next();
+    } else {
+      // If not a new request, send cached cost
+      res.locals.cost = Number(result);
+      next();
     }
-    currentDay.setDate(currentDay.getDate() + 1);
-  }
-  res.locals.cost = cost;
-  next();
+  });
 };
 
 module.exports = priceController;
