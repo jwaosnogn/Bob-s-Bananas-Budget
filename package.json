@@ -1,0 +1,26 @@
+{
+  "name": "Bob-s-Bananas-Budget",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwaosnogn/Bob-s-Bananas-Budget.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwaosnogn/Bob-s-Bananas-Budget/issues"
+  },
+  "homepage": "https://github.com/jwaosnogn/Bob-s-Bananas-Budget#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "redis": "^2.8.0"
+  }
+}
