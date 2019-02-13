@@ -16,7 +16,7 @@ npm install
 ```sh
 npm run server
 ````
-- Open another terminal and start application
+- Open another terminal, navigate to this directory, and start application
 ````sh
 npm start
 ````
