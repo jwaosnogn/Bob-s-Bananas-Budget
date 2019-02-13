@@ -1,4 +1,4 @@
-# Bob-s-Bananas-Budget
+# Bob's Bananas Budget
 
 ## Getting Started
 - This app requires you to have Redis installed and have its server running to work. If you do not have either, please download and/or follow the instructions provided in https://redis.io/download to start the Redis server and load database.
