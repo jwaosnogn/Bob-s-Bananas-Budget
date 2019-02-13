@@ -27,7 +27,7 @@ npm start
 - Click calculate
 - Go bananas 🍌
 
-## Extra Comments
+## Comments
 API built with Node/Express.
 
 Selected Redis as database to check and store simple key/value pairs with inputs stringified and stored as unique keys and cost stored as values. Redis was the best option for this scenario as using a typical Mongoose or SQL database would take longer in checking if we've made the same request before (as well as other reasons).
